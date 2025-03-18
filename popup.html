@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>YouMind Extensions</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <h1>YouMind Extensions</h1>
+    <div class="content">
+      <div class="feature">
+        <h2>当前页面信息</h2>
+        <div id="url-display">加载中...</div>
+      </div>
+      <div class="feature">
+        <h2>DeepSeek 标题生成</h2>
+        <div class="api-status" id="api-status">未配置 API 密钥</div>
+        <div class="form-group">
+          <label for="quick-api-key">API 密钥快速配置</label>
+          <input type="text" id="quick-api-key" placeholder="输入您的 DeepSeek API 密钥">
+          <button id="save-api-key">保存密钥</button>
+        </div>
+        <div class="button-group">
+          <button id="generate-title-btn">生成标题</button>
+          <button id="open-options-btn">高级设置</button>
+        </div>
+      </div>
+    </div>
+    <div id="status-message"></div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,235 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  width: 340px;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+.container {
+  padding: 16px;
+}
+
+h1 {
+  color: #2D2D2D;
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 16px;
+  text-align: center;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #eaeaea;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+h1::before {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 34 20" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M5.33333 4.06667C5.33333 1.82071 3.51262 0 1.26667 0H0V13.8333C0 17.2391 2.7609 20 6.16667 20C9.57243 20 12.3333 17.2391 12.3333 13.8333L12.3333 12.0333L12.3333 8.01667L12.3333 6.73334C12.3333 4.85557 13.8556 3.33334 15.7333 3.33334C17.6111 3.33334 19.1333 4.85557 19.1333 6.73334V17.3333C19.1333 18.8061 20.3272 20 21.8 20H24.7333V7.03334C24.7333 3.14893 21.5844 7.80279e-06 17.7 7.80279e-06C13.8156 7.80279e-06 10.6667 3.14893 10.6667 7.03334L10.6667 8.01667L10.6667 12.0333L10.6667 14C10.6667 15.4728 9.47275 16.6667 8 16.6667C6.52725 16.6667 5.33333 15.4728 5.33333 14V4.06667Z" fill="%232D2D2D"/></svg>');
+  margin-right: 8px;
+}
+
+h2 {
+  color: #2D2D2D;
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.feature {
+  background-color: white;
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  border: 1px solid #eaeaea;
+}
+
+#url-display {
+  word-break: break-all;
+  font-size: 12px;
+  color: #555;
+  background-color: #f5f5f5;
+  padding: 10px;
+  border-radius: 6px;
+  max-height: 40px;
+  overflow-y: auto;
+  border: 1px solid #eaeaea;
+}
+
+textarea {
+  width: 100%;
+  height: 80px;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  resize: none;
+  font-family: inherit;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+}
+
+button {
+  background-color: #2D2D2D;
+  color: white;
+  border: none;
+  padding: 9px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button:hover {
+  background-color: #1A1A1A;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+#save-notes {
+  width: 100%;
+}
+
+#status-message {
+  margin-top: 12px;
+  text-align: center;
+  font-size: 12px;
+  color: #2D9D78;
+  height: 16px;
+  font-weight: 500;
+  transition: opacity 0.3s ease;
+}
+
+#capture-btn, #translate-btn, #generate-title-btn, #open-options-btn {
+  width: calc(50% - 5px);
+  margin-right: 5px;
+}
+
+#translate-btn, #open-options-btn {
+  margin-right: 0;
+  margin-left: 5px;
+}
+
+.api-status {
+  font-size: 12px;
+  color: #666;
+  background-color: #f5f5f5;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  border: 1px solid #eaeaea;
+  display: flex;
+  align-items: center;
+}
+
+.api-status::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #999;
+  margin-right: 8px;
+}
+
+.api-status.configured {
+  color: #2D9D78;
+}
+
+.api-status.configured::before {
+  background-color: #2D9D78;
+}
+
+.api-status.error {
+  color: #E53935;
+}
+
+.api-status.error::before {
+  background-color: #E53935;
+}
+
+.form-group {
+  margin-bottom: 14px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 6px;
+  color: #2D2D2D;
+  font-weight: 500;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-family: inherit;
+  margin-bottom: 10px;
+  transition: border-color 0.2s ease;
+  font-size: 13px;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: #2D2D2D;
+  box-shadow: 0 0 0 2px rgba(45, 45, 45, 0.1);
+}
+
+#save-api-key {
+  width: 100%;
+  margin-bottom: 14px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.button-group button {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.button-group button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  transition: transform 0.4s, opacity 0.4s;
+}
+
+.button-group button:active::after {
+  transform: translate(-50%, -50%) scale(2);
+  opacity: 1;
+  transition: 0s;
+}
