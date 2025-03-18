@@ -10,3 +10,5 @@
 
 - 安装插件
 - 配置deepseek API KEY
+
+![WX20250318-165521@2x](https://github.com/user-attachments/assets/2b26d1db-9472-484b-9577-f6d7751ffbf7)
