@@ -3,6 +3,7 @@ function saveOptions() {
   const apiKey = document.getElementById('api-key').value;
   const apiModel = document.getElementById('api-model').value || 'deepseek-chat';
   const apiPrompt = document.getElementById('api-prompt').value || '请为以下内容生成一个吸引人的标题：';
+  const allowedDomains = document.getElementById('allowed-domains').value;
   const elementSelector = document.getElementById('element-selector').value;
   const buttonPosition = document.getElementById('button-position').value;
   
@@ -11,6 +12,7 @@ function saveOptions() {
       apiKey: apiKey,
       apiModel: apiModel,
       apiPrompt: apiPrompt,
+      allowedDomains: allowedDomains,
       elementSelector: elementSelector,
       buttonPosition: buttonPosition
     },
@@ -37,6 +39,7 @@ function restoreOptions() {
       apiKey: '',
       apiModel: 'deepseek-chat',
       apiPrompt: '请为以下内容生成一个吸引人的标题：',
+      allowedDomains: 'https://youmind.ai',
       elementSelector: 'input.flex.h-10.w-full.rounded-md.border.border-input',
       buttonPosition: 'right'
     },
@@ -44,6 +47,7 @@ function restoreOptions() {
       document.getElementById('api-key').value = items.apiKey;
       document.getElementById('api-model').value = items.apiModel;
       document.getElementById('api-prompt').value = items.apiPrompt;
+      document.getElementById('allowed-domains').value = items.allowedDomains;
       document.getElementById('element-selector').value = items.elementSelector;
       document.getElementById('button-position').value = items.buttonPosition;
     }

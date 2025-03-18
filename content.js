@@ -4,6 +4,7 @@ async function getUserConfig() {
     chrome.storage.sync.get(
       {
         apiKey: '',
+        allowedDomains: 'https://youmind.ai',
         elementSelector: 'input.flex.h-10.w-full.rounded-md.border.border-input',
         buttonPosition: 'right'
       },
@@ -11,6 +12,32 @@ async function getUserConfig() {
         resolve(result);
       }
     );
+  });
+}
+
+// 检查当前网址是否在允许列表中
+function isAllowedDomain(allowedDomainsStr) {
+  // 如果没有设置允许的域名，默认只允许 youmind.ai
+  if (!allowedDomainsStr) {
+    allowedDomainsStr = 'https://youmind.ai';
+  }
+  
+  // 将允许的域名字符串分割为数组
+  const allowedDomains = allowedDomainsStr.split('\n').map(domain => domain.trim()).filter(domain => domain);
+  
+  // 获取当前页面的 URL
+  const currentUrl = window.location.href;
+  
+  // 检查当前 URL 是否匹配任何允许的域名
+  return allowedDomains.some(domain => {
+    // 如果域名包含通配符 *，则使用正则表达式匹配
+    if (domain.includes('*')) {
+      const regexPattern = domain.replace(/\./g, '\\.').replace(/\*/g, '.*');
+      const regex = new RegExp('^' + regexPattern + '$');
+      return regex.test(currentUrl);
+    }
+    // 否则检查当前 URL 是否以允许的域名开头
+    return currentUrl.startsWith(domain);
   });
 }
 
@@ -1006,7 +1033,6 @@ async function findAndProcessInputElement() {
       // 如果还是找不到，列出所有输入框供调试
       if (!inputElement) {
         const allInputs = findAllInputElements();
-        console.log('页面上所有可能的输入框:', allInputs);
         
         // 尝试选择一个可见的输入框
         const visibleInputs = allInputs.filter(i => i.visible && i.width > 50 && i.height > 20);
@@ -1020,11 +1046,9 @@ async function findAndProcessInputElement() {
       await createTitleButton(inputElement);
       return true;
     } else {
-      console.error('未找到可用的输入框');
       return false;
     }
   } catch (error) {
-    console.error('处理输入框错误:', error);
     return false;
   }
 }
@@ -1041,7 +1065,7 @@ function setupMutationObserver() {
       try {
         await findAndProcessInputElement();
       } catch (error) {
-        console.error('处理DOM变化错误:', error);
+        console.warn('处理DOM变化错误:', error);
       }
     }, 500); // 500ms的节流时间
   });
@@ -1066,6 +1090,12 @@ function setupMutationObserver() {
 // 页面加载完成后执行
 document.addEventListener('DOMContentLoaded', async function() {
   try {
+    // 获取配置并检查当前域名是否在允许列表中
+    const config = await getUserConfig();
+    if (!isAllowedDomain(config.allowedDomains)) {
+      return; // 如果不在允许的域名列表中，则不执行后续操作
+    }
+    
     // 尝试查找输入框
     await findAndProcessInputElement();
     
@@ -1078,10 +1108,16 @@ document.addEventListener('DOMContentLoaded', async function() {
 
 // 确保在页面已经加载的情况下也能运行
 if (document.readyState === 'complete' || document.readyState === 'interactive') {
-  findAndProcessInputElement().catch(error => {
-    console.error('页面已加载状态下初始化错误:', error);
+  getUserConfig().then(config => {
+    if (!isAllowedDomain(config.allowedDomains)) {
+      return; // 如果不在允许的域名列表中，则不执行后续操作
+    }
+    
+    findAndProcessInputElement().catch(error => {
+      console.error('页面已加载状态下初始化错误:', error);
+    });
+    setupMutationObserver();
   });
-  setupMutationObserver();
 }
 
 // 示例：为页面添加快捷键

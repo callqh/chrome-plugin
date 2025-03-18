@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "YouMind Extensions",
   "version": "1.0",
-  "description": "智能标题生成工具 - 基于DeepSeek模型",
+  "description": "YouMind增强插件，目前支持根据内容智能生成标题 - 功能基于DeepSeek模型",
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
