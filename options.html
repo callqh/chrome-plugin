@@ -65,7 +65,7 @@
       font-size: 13px;
     }
     
-    input[type="text"], textarea, select {
+    input[type="text"], input[type="password"], textarea, select {
       width: 100%;
       padding: 10px;
       border: 1px solid #ddd;
@@ -161,7 +161,23 @@
     <h2>DeepSeek API 配置</h2>
     <div class="form-group">
       <label for="api-key">API 密钥</label>
-      <input type="password" id="api-key" placeholder="输入您的 DeepSeek API 密钥" >
+      <div style="position: relative; display: flex;">
+        <input type="password" id="api-key" placeholder="输入您的 DeepSeek API 密钥" style="padding-right: 40px;">
+        <button type="button" id="toggle-api-key" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; padding: 4px; width: 30px; height: 30px; color: #666; border-radius: 4px; box-shadow: none;">
+          <style>
+            #toggle-api-key:hover { background: rgba(0,0,0,0.05); color: #333; }
+            #toggle-api-key:active { background: rgba(0,0,0,0.1); }
+          </style>
+          <svg id="eye-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+          <svg id="eye-off-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" style="display: none;">
+            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+            <line x1="1" y1="1" x2="23" y2="23"></line>
+          </svg>
+        </button>
+      </div>
       <p class="help-text">您可以在 DeepSeek 开发者平台获取 API 密钥</p>
     </div>
     
@@ -202,5 +218,22 @@
   <div id="status"></div>
   
   <script src="options.js"></script>
+  <script>
+    document.getElementById('toggle-api-key').addEventListener('click', function() {
+      const input = document.getElementById('api-key');
+      const eyeIcon = document.getElementById('eye-icon');
+      const eyeOffIcon = document.getElementById('eye-off-icon');
+      
+      if (input.type === 'password') {
+        input.type = 'text';
+        eyeIcon.style.display = 'none';
+        eyeOffIcon.style.display = 'block';
+      } else {
+        input.type = 'password';
+        eyeIcon.style.display = 'block';
+        eyeOffIcon.style.display = 'none';
+      }
+    });
+  </script>
 </body>
 </html>

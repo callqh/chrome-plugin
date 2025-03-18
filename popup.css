@@ -83,15 +83,16 @@ button {
   background-color: #2D2D2D;
   color: white;
   border: none;
-  padding: 9px 14px;
-  border-radius: 6px;
+  padding: 12px 14px;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
+  min-height: 48px;
 }
 
 button:hover {
@@ -119,14 +120,14 @@ button:active {
   transition: opacity 0.3s ease;
 }
 
-#capture-btn, #translate-btn, #generate-title-btn, #open-options-btn {
-  width: calc(50% - 5px);
-  margin-right: 5px;
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
 }
 
-#translate-btn, #open-options-btn {
-  margin-right: 0;
-  margin-left: 5px;
+.button-group button {
+  flex: 1;
 }
 
 .api-status {
@@ -179,7 +180,7 @@ button:active {
   font-weight: 500;
 }
 
-input[type="text"] {
+input[type="text"], input[type="password"] {
   width: 100%;
   padding: 10px;
   border: 1px solid #ddd;
@@ -191,15 +192,10 @@ input[type="text"] {
   font-size: 13px;
 }
 
-input[type="text"]:focus {
+input[type="text"]:focus, input[type="password"]:focus {
   outline: none;
   border-color: #2D2D2D;
   box-shadow: 0 0 0 2px rgba(45, 45, 45, 0.1);
-}
-
-#save-api-key {
-  width: 100%;
-  margin-bottom: 14px;
 }
 
 .button-group {
