@@ -93,14 +93,11 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
    if (request.action === 'generateTitle') {
     // 生成标题功能
     getUserConfig().then(async config => {
-      console.log("👾👾👾 == getUserConfig == config:", config);
-      
       // 先尝试查找现有输入框
       let inputElement = document.querySelector(config.elementSelector);
       
       // 如果找不到，尝试使用更智能的方法查找
       if (!inputElement) {
-        console.log('尝试智能查找输入框');
         const found = await findAndProcessInputElement();
         if (found) {
           // 重新查询输入框，因为可能已经找到了
@@ -133,9 +130,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       
       // 如果还是找不到输入框，尝试找到contenteditable元素
       let originalText = '';
-      
-        console.log('尝试查找YouMind编辑器内容区域元素');
-        
         // 专门针对YouMind编辑器的内容区域元素
         // 尝试多种选择器
         const youmindSelectors = [
@@ -152,7 +146,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
           const element = document.querySelector(selector);
           if (element) {
             youmindContentElement = element;
-            console.log('找到YouMind编辑器元素，使用选择器:', selector);
             break;
           }
         }
@@ -162,8 +155,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         
         // 如果找到了YouMind编辑器的内容区域元素
         if (youmindContentElement) {
-          console.log('找到YouMind编辑器内容区域元素:', youmindContentElement);
-          
           // 从内容区域元素提取文本内容
           let content = '';
           const paragraphs = youmindContentElement.querySelectorAll('p');
@@ -282,28 +273,22 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
             });
             
             originalText = content;
-            console.log('从段落中提取的内容:', originalText);
           }
           
           // 如果还是为空，尝试获取HTML内容
           if (!originalText || originalText.trim() === '') {
-            console.log('尝试获取HTML内容');
             const htmlContent = youmindElement.innerHTML;
-            console.log('HTML内容:', htmlContent);
             
             // 创建一个临时元素来提取纯文本
             const tempDiv = document.createElement('div');
             tempDiv.innerHTML = htmlContent;
             originalText = tempDiv.textContent || tempDiv.innerText;
-            console.log('从HTML提取的纯文本:', originalText);
           }
         }
       }
       
       // 如果还是没有内容，尝试从页面中获取所有可见文本
       if (!originalText || originalText.trim() === '') {
-        console.log('尝试从页面中获取所有可见文本');
-        
         // 获取当前浏览器窗口中的可见文本
         const getVisibleText = () => {
           const walker = document.createTreeWalker(
